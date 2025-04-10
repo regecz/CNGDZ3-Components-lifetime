@@ -1,0 +1,75 @@
+.container{
+  width: 80%;
+  margin: 0 auto;
+  background-color: rgb(225, 225, 225);
+  margin-top: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  
+}
+
+h1{
+  text-align: center;
+  background-color: rgb(10, 155, 240);
+  margin-top: 0px;
+  padding: 10px;
+  margin-top: -10px;
+  border-radius: 5px 5px 0px 0px;
+}
+
+.content-container{
+  
+}
+
+mat-card {
+    width: 50%;
+    margin: 20px auto;
+    padding: 0px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+  }
+  
+  mat-card-title {
+    font-weight: bold;
+    color: #333;
+  }
+  
+  mat-card-subtitle {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  p {
+    margin: 5px 0;
+  }
+
+  .component-container{
+    width: 50%;
+    text-align: center;
+    padding: 5px 10px;
+  }
+
+  .button-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    gap: 10px;
+
+    button{
+      width: 50%;
+    }
+
+    .delete{
+      background-color: rgb(250, 75, 75);
+      color: white;
+    }
+
+    .edit{
+      background-color: rgb(97, 97, 255);
+      color: white;
+    }
+  }

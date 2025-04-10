@@ -1,0 +1,7 @@
+mat-toolbar{
+  height: 7.5vh;
+  background: var(--mat-sys-primary);
+  display: flex;
+  justify-content: center;
+}
+

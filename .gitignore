@@ -1,0 +1,22 @@
+# Node.js
+node_modules/
+dist/
+
+# Angular cache
+.angular/cache/
+
+# IDE-k és szerkesztők
+.vscode/
+.idea/
+
+# Operációs rendszer-specifikus fájlok
+.DS_Store
+Thumbs.db
+
+# Log fájlok
+*.log
+
+
+# Build output
+out/
+build/
