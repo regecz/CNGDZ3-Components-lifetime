@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const argon2 = require('argon2');
 
+
 // Regisztráció
 exports.register = async (req, res) => {
   const { username, password } = req.body;

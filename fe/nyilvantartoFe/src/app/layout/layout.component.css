@@ -1,7 +1,28 @@
 mat-toolbar{
   height: 7.5vh;
+  padding: 0px 2rem;
   background: var(--mat-sys-primary);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
 }
 
+.title{
+}
+
+.account{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #cdcdcd;
+
+  border-radius: 15px;
+}
+
+mat-icon{
+
+}
+
+.account-name{
+  font-size: 16px;
+}

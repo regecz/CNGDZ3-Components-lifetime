@@ -1,0 +1,34 @@
+<div>
+    <h2>Új komponens létrehozása</h2>
+    <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+        <mat-label>Név</mat-label>
+        <input matInput formControlName="name" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Típus</mat-label>
+        <input matInput formControlName="type" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Márka</mat-label>
+        <input matInput formControlName="brand" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Leírás</mat-label>
+        <textarea matInput formControlName="description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Státusz</mat-label>
+        <input matInput formControlName="status" />
+    </mat-form-field>
+
+    <div class="dialog-actions">
+        <button mat-button type="button" (click)="onCancel()">Mégse</button>
+        <button mat-raised-button color="primary" type="submit">Létrehozás</button>
+    </div>
+    </form>
+</div>

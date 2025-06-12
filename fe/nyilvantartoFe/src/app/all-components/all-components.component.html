@@ -1,5 +1,12 @@
 <div class="container">
-    <h1>Összes komponens</h1>
+    <h1>Komponensek</h1>
+    <button class="add-component" mat-raised-button color="primary" (click)="onCreateComponent()">
+        <mat-icon>add</mat-icon>
+        Új komponens
+    </button>
+    <div >
+        <input class="search-input" matInput (input)="onSearch($event)" placeholder="Keresés...">
+    <div>
     <div class="content-container" *ngIf="components.length > 0; else noComponents">
         <mat-card *ngFor="let component of components">                
             <div class="component-container">
@@ -8,22 +15,23 @@
                 <p>{{ component.description }}</p>
                 <p><strong>Rendelte:</strong> {{ component.orderedBy?.username }}</p>
                 <p><strong>Létrehozva:</strong> {{ component.createdAt | date:'short' }}</p>
-                <p><strong>Frissítve:</strong> {{ component.updatedAt | date:'short' }}</p>
+                <p *ngIf="component.createdAt !== component.updatedAt"><strong>Frissítve:</strong> {{ component.updatedAt | date:'short' }}</p>
             </div>
             <div class="button-container">
                 <button class="delete" mat-fab extended (click)="onDelete(component._id)">
                     <mat-icon>delete</mat-icon>
                     Törlés
                 </button>
-                <button class="edit" mat-fab extended (click)="onEdit(component._id)">
+                <button class="edit" mat-fab extended (click)="onEdit(component)">
                     <mat-icon>edit</mat-icon>
                     Módosít
                 </button>
             </div>
         </mat-card>
-        <mat-paginator [length]="totalComponents" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)">
-        </mat-paginator>
+        
     </div>
+    <mat-paginator [length]="totalComponents" [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" (page)="onPageChange($event)">
+    </mat-paginator>
 </div>
   
 <ng-template #noComponents>

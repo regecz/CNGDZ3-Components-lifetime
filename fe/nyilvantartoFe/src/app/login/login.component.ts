@@ -9,6 +9,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { UserServiceService } from '../user-service.service';
 
 
 @Component({
@@ -21,7 +22,7 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router, private authService: AuthService, private userService: UserServiceService) {
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -31,14 +32,13 @@ export class LoginComponent {
   onSubmit() {
     if (this.loginForm.valid) {
       const loginData = this.loginForm.value;
-      this.http.post('http://localhost:3000/auth/login', loginData, {withCredentials: true}).subscribe(
+      this.authService.login(loginData).subscribe(
         (response) => {
           console.log('Login successful', response);
-          //this.router.navigate(['/components']); // Navigáció
+          this.router.navigate(['/components']); // Navigálás a főoldalra
         },
         (error) => {
           console.error('Login failed', error);
-          console.log('Login failed', error.error.message);
         }
       );
     }
@@ -47,11 +47,20 @@ export class LoginComponent {
   onRegister() {
     if (this.loginForm.valid) {
       const registerData = this.loginForm.value;
-      this.http.post('http://localhost:3000/auth/register', registerData).subscribe(response => {
+      this.authService.register(registerData).subscribe(
+        (response: any) => {
         console.log('Registration successful', response);
-      }, error => {
+        
+      },
+      (error: any) => {
         console.error('Registration failed', error);
-        console.log('Registration failed', error.error.message);
+        let errorMsg = 'Sikertelen regisztráció';
+        
+        if (error.error && error.error.message) {
+          errorMsg += ': ' + error.error.message;
+        }
+        
+        alert(errorMsg);
       });
     }
   }

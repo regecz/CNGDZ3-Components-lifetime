@@ -22,7 +22,7 @@ exports.createComponent = async (req, res) => {
     });
 
     await newComponent.save();
-    res.status(201).send('Komponens sikeresen létrehozva.');
+    res.status(201).json({message: 'Komponens sikeresen létrehozva.', id: newComponent._id});
   } catch (err) {
     console.error(err);
     res.status(500).send('Hiba a komponens létrehozása közben.');
@@ -48,13 +48,22 @@ exports.getComponents = async (req, res) => {
   try {
     const limit = parseInt(req.query.limit) || 5;
     const offset = parseInt(req.query.offset) || 0;
+    const search = req.query.search || '';
 
-    console.log(limit, offset);
+    const searchQuery = search 
+    ? {
+      $or: [
+        { compName: { $regex: search, $options: 'i' } },
+        { brand: { $regex: search, $options: 'i' } },
+        { status: { $regex: search, $options: 'i' } },
+        { description: { $regex: search, $options: 'i' } },
+        { serial: { $regex: search, $options: 'i' } },
+      ]
+    } : {};
 
-    const components = await Component.find().skip(offset).limit(limit).populate('orderedBy', 'username');
+    const components = await Component.find(searchQuery).sort({updatedAt: -1}).skip(offset).limit(limit).populate('orderedBy', 'username');
 
     const totalComponents = await Component.countDocuments();
-    console.log(totalComponents);
     res.status(200).json({components, totalComponents});
   } catch (err) {
     console.error(err);
@@ -66,12 +75,12 @@ exports.deleteComponent = async (req, res) => {
   try {
     const component = await Component.findByIdAndDelete(req.params.id);
     if (!component) {
-      return res.status(404).send('Komponens nem található.');
+      return res.status(404).send.json({message: 'Komponens nem található.'});
     }
-    res.status(200).send('Komponens sikeresen törölve.');
+    res.status(200).json({message: 'Komponens sikeresen törölve.'});
   } catch (err) {
     console.error(err);
-    res.status(500).send('Hiba a komponens törlése közben.');
+    res.status(500).json({message: 'Hiba a komponens törlése közben.'});
   }
 }
 
