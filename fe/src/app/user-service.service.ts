@@ -22,7 +22,6 @@ export class UserServiceService {
     return this.http.get<any>(this.apiUrl, { withCredentials: true }).pipe(
       tap(user => {
         this.userCache = user; // Cache-elés
-        console.log('Fetched user:', user); // Debug üzenet
       })
     );
   }

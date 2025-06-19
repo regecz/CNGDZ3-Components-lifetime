@@ -33,14 +33,19 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const loginData = this.loginForm.value;
       this.authService.login(loginData).subscribe(
-        (response) => {
-          console.log('Login successful', response);
+        () => {
           this.router.navigate(['/components']); // Navigálás a főoldalra
         },
-        (error) => {
-          console.error('Login failed', error);
+      (error: any) => {
+        console.error('Login failed', error);
+        let errorMsg = 'Sikertelen bejelentkezés';
+        
+        if (error.error && error.error.message) {
+          errorMsg += ': ' + error.error.message;
         }
-      );
+        
+        alert(errorMsg);
+      });
     }
   }
 
@@ -48,10 +53,6 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const registerData = this.loginForm.value;
       this.authService.register(registerData).subscribe(
-        (response: any) => {
-        console.log('Registration successful', response);
-        
-      },
       (error: any) => {
         console.error('Registration failed', error);
         let errorMsg = 'Sikertelen regisztráció';

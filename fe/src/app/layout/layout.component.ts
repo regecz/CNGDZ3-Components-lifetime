@@ -24,7 +24,6 @@ export class LayoutComponent {
 
   setUsername(username: string | null) {
     this.username = username; // Bejelentkezett felhasználó neve
-    console.log('setUsername meghívva, új érték:', this.username); // Debug üzenet
   }
   
   ngOnInit() {
@@ -32,8 +31,6 @@ export class LayoutComponent {
       
       if (user) {
         this.setUsername(user.username); // Beállítjuk a felhasználónevet
-      } else {
-        console.log('Nincs bejelentkezett felhasználó by init   '); // Debug üzenet
       }
     });
   }

@@ -39,7 +39,6 @@ export class AllComponentsComponent implements OnInit {
 
     this.http.get<{components: any[]; totalComponents: number}>(`http://localhost:3000/components/getComponents?limit=${limit}&offset=${offset}&search=${this.searchTerm}`, { withCredentials: true }).subscribe(
       (data) => {
-        console.log('Fetched components:', data); // Debug üzenet
         this.components = data.components;
         this.totalComponents = data.totalComponents;
         // Ellenőrizzük, hogy az aktuális oldalindex érvényes-e
@@ -97,11 +96,9 @@ export class AllComponentsComponent implements OnInit {
             serial: result.serial,
             orderedBy: user.username,
           }
-          console.log('Új komponens adatai:', componentData);
           
           this.http.post('http://localhost:3000/components/addComponent', componentData, { withCredentials: true }).subscribe({
-            next: (response) => {
-              console.log('Komponens sikeresen létrehozva', response);
+            next: () => {
               alert('Komponens sikeresen létrehozva.');
               this.fetchComponents(); // Frissítjük az adatokat
             },
@@ -116,7 +113,6 @@ export class AllComponentsComponent implements OnInit {
   }
 
   onEdit(component: any) {
-    console.log('Szerkesztésre kiválasztott komponens:', component); // Debug üzenet
     const dialogRef = this.dialog.open(UpdateComponentDialogComponent, {
       width: '400px',
       data: { ...component } // Átadjuk a komponens adatait, beleértve az id-t is

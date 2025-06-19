@@ -16,9 +16,7 @@ export class AuthService {
     return this.http.post<{ username: string }>(`${this.apiUrl}/login`, credentials, { withCredentials: true }).pipe(
       tap((response) => {
         if (response) {
-          console.log('Login response by authService:', response); // Debug üzenet
           this.userService.getUser().subscribe((user) => {
-            console.log('Fetched user from backend:', user); // Debug üzenet
             this.setLoggedInUser(user); // Beállítjuk a bejelentkezett felhasználót
           })
         } else {
@@ -42,7 +40,6 @@ export class AuthService {
   }
 
   setLoggedInUser(user: any | null): void {
-    console.log('setLoggedInUser metódus meghívva', user); // Debug üzenet
     this.loggedInUser.next(user); // Frissítjük a BehaviorSubject értékét
   }
 
